@@ -1,87 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .login-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        .login-container h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .login-container label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .login-container input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            box-sizing: border-box;
-        }
-        .login-container input[type="submit"]:hover {
-            background-color: #218838;
-        }
-        .login-container .forgot-password {
-            text-align: center;
-            margin-top: 10px;
-        }
-        .login-container .forgot-password a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .login-container .forgot-password a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Form - HTML & CSS Only</title>
+  <style>
+    :root {
+      --bg-color: #f0f0f0;
+      --text-color: #000;
+      --box-color: #fff;
+    }
+
+    .dark {
+      --bg-color: #222;
+      --text-color: #fff;
+      --box-color: #333;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .wrapper {
+      text-align: center;
+      width: 100%;
+    }
+
+    .login-container {
+      background-color: var(--box-color);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .login-container label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .login-container input[type="text"]:focus,
+    .login-container input[type="password"]:focus {
+      border-color: #28a745;
+      outline: none;
+    }
+
+    .login-container input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+
+    .login-container input[type="submit"]:hover {
+      background-color: #218838;
+    }
+
+    .login-container .options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: -10px;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .login-container .forgot-password {
+      text-align: center;
+    }
+
+    .login-container .forgot-password a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .login-container .forgot-password a:hover {
+      text-decoration: underline;
+    }
+
+    .show-password-fake {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .toggle-label {
+      display: block;
+      font-size: 14px;
+      margin-top: 15px;
+      color: #007bff;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    /* Dark mode styling using checkbox hack */
+    #darkToggle {
+      display: none;
+    }
+
+    #darkToggle:checked + .wrapper {
+      display: block;
+    }
+
+    #darkToggle:checked + .wrapper .login-container {
+      background-color: #333;
+      color: #fff;
+    }
+
+    #darkToggle:checked + .wrapper body {
+      background-color: #222;
+      color: #fff;
+    }
+
+    body:has(#darkToggle:checked) {
+      background-color: #222;
+      color: #fff;
+    }
+
+    body:has(#darkToggle:checked) .login-container {
+      background-color: #333;
+      color: #fff;
+    }
+
+    @media (max-width: 400px) {
+      .login-container {
+        width: 90%;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="login-container">
-    <h2>Login</h2>
-    <form action="/submit_login" method="post">
+  <!-- Checkbox to toggle dark mode -->
+  <input type="checkbox" id="darkToggle" />
+  <div class="wrapper">
+    <label for="darkToggle" class="toggle-label">Toggle Dark Mode</label>
+
+    <div class="login-container">
+      <h2>Login</h2>
+      <form action="/submit_login" method="post">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="Enter Username" required>
+        <input type="text" id="username" name="username" placeholder="Enter Username" required title="Enter your username">
 
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter Password" required>
+        <input type="password" id="password" name="password" placeholder="Enter Password" required title="Enter your password">
+
+        <div class="show-password-fake">🔒 Password is hidden</div>
+
+        <div class="options">
+          <label><input type="checkbox" name="remember"> Remember Me</label>
+          <a href="#">Forgot?</a>
+        </div>
 
         <input type="submit" value="Login">
-    </form>
-    <div class="forgot-password">
+      </form>
+
+      <div class="forgot-password">
         <a href="#">Forgot password?</a>
+      </div>
     </div>
-</div>
+  </div>
 
 </body>
 </html>
